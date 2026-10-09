@@ -2,7 +2,11 @@ fpga
 asic
 rtl
 verification
-design engineer
-vlsi
 soc
-intern
+vlsi
+dft
+hardware
+hw
+silicon
+digital
+embedded
