@@ -19,15 +19,15 @@ Tejas Networks | oracle | https://iablcp.fa.ocs.oraclecloud.com/hcmUI/CandidateE
 Moschip Technology | pagechange | https://moschip.com/careers/current-openings/
 Softnautics | pagechange | https://softnautics.com/job-openings/
 Mirafra Technologies | pagechange | https://mirafra.com/career/#hiring
-Tessolve | pagechange | https://tessolve.darwinbox.com/ms/candidatev2/main/careers/allJobs
+#Tessolve | pagechange | https://tessolve.darwinbox.com/ms/candidatev2/main/careers/allJobs
 Insemi | pagechange | https://insemitech.com/current-openings/
 Mistral | pagechange | https://mistralsolutions.com/career/
 iwave | pagechange | https://www.iwavesystems.com/career/
 Logicfruit | pagechange | https://www.logic-fruit.com/career/jobs-current-opening/
 Altera | workday | https://altera.wd1.myworkdayjobs.com/en-US/Altera
-Cisco | pagechange | https://careers.cisco.com/global/en/search-results
+#Cisco | pagechange | https://careers.cisco.com/global/en/search-results
 Google | pagechange | https://www.google.com/about/careers/applications/jobs/results/?q=&hl=en-US
-Meta | pagechange | https://www.metacareers.com/jobsearch/
+#Meta | pagechange | https://www.metacareers.com/jobsearch/
 Apple | pagechange | https://jobs.apple.com/en-in/search?location=india-INDC
 Nokia | oracle | https://jobs.nokia.com/en/sites/CX_1
 LG Electronics | pagechange | https://globalcareers.lge.com/jobs
@@ -46,24 +46,24 @@ Cadence | workday | https://cadence.wd1.myworkdayjobs.com/External_Careers
 MediaTek | pagechange | https://yourcareers.mediatek.com/en/jobs?query=&locations=
 Micron | eightfold | https://careers.micron.com/careers?start=0&pid=43301265&sort_by=hot | micron.com
 Analog Devices | workday | https://analogdevices.wd1.myworkdayjobs.com/External
-Renesas | jibe | https://jobs.renesas.com/jobs?q=&options=&page=1
+Renesas | pagechange | https://jobs.renesas.com/jobs?q=&options=&page=1
 Rambus | pagechange | https://careers-rambus.icims.com/jobs/search
 SiFive | workday | https://sifive.wd1.myworkdayjobs.com/en-US/sifivecareers
 Imagination Technologies | pagechange | https://www.imaginationtech.com/careers/vacancies/
 Microchip | workday | https://wd5.myworkdaysite.com/en-US/recruiting/microchiphr/External
-GlobalFoundaries | eightfold | https://careers.gf.com/careers?start=0&pid=&sort_by=hot | gf.com
+GlobalFoundaries | pagechange | https://careers.gf.com/careers?start=0&pid=&sort_by=hot
 Astera Labs | greenhouse | https://www.asteralabs.com/careers/#greenhouse-listings | asteralabs
 Alphawave Semi | workday | https://alphawave.wd10.myworkdayjobs.com/Alphawave_External
 Einfochips | pagechange | https://careers.arrow.com/us/en/search-results?keywords=einfochips
-Cyeint | pagechange | https://careers.cyient.com/cyient/
+#Cyeint | pagechange | https://careers.cyient.com/cyient/
 Harman | pagechange | https://jobsearch.harman.com/en_US/careers/SearchJobs/?listFilterMode=1&jobRecordsPerPage=20&
 IBM | pagechange | https://www.ibm.com/careers/search
 Amazon | amazon | https://www.amazon.jobs/en/search?base_query=&loc_query=
 Microsoft | eightfold | https://apply.careers.microsoft.com/careers?start=0&pid=1970393557002381&sort_by=timestamp | microsoft.com
 HP | eightfold | https://apply.hp.com/careers?start=0&pid=&sort_by=timestamp&filter_job_category=engineering+services | hp.com
-HPE | pagechange | https://careers.hpe.com/us/en/search-results
+#HPE | pagechange | https://careers.hpe.com/us/en/search-results
 Fujitsu | pagechange | https://www.jobs.global.fujitsu.com/search/?q=&locationsearch=&searchResultView=LIST
-Tesla | pagechange | https://hire-r1.mokahr.com/social-recruitment/tesla/100004142#/
+#Tesla | pagechange | https://hire-r1.mokahr.com/social-recruitment/tesla/100004142#/
 GE Vernova | jibe | https://careers.gevernova.com/jobs
 Honeywell | oracle | https://careers.honeywell.com/en/sites/Honeywell/jobs?mode=location
 Thales | pagechange | https://careers.thalesgroup.com/global/en/home
