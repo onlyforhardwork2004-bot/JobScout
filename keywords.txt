@@ -1,0 +1,8 @@
+fpga
+asic
+rtl
+verification
+design engineer
+vlsi
+soc
+intern
