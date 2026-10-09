@@ -1,13 +1,17 @@
 name: job-watch
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: job-watch
+  cancel-in-progress: false
 jobs:
   watch:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
