@@ -1,0 +1,70 @@
+Nvidia | Career portal | https://jobs.nvidia.com/careers?start=0&pid=893398076243&sort_by=timestamp
+Qualcomm | Career portal | https://careers.qualcomm.com/careers?start=0&pid=446716313531&sort_by=timestamp
+AMD | career portal | https://careers.amd.com/careers-home/jobs?page=1
+Texas Instruments | career portal | https://careers.ti.com/en/sites/CX
+Intel | workday | https://intel.wd1.myworkdayjobs.com/External
+Bosch | Career portal | https://jobs.bosch.com/en?pages=1&country=in
+Infineon | career portal | https://jobs.infineon.com/careers?start=0&pid=563808972179274&sort_by=timestamp
+Samsung Semiconductors | career portal | https://semiconductor.samsung.com/about-us/careers/jobs/?region=india
+NXP | workday | https://nxp.wd3.myworkdayjobs.com/careers
+Seimens | career portal | https://jobs.siemens.com/en_US/externaljobs/SearchJobs/?listFilterMode=1&folderRecordsPerPage=6&
+TATA Electronics | career portal | https://careers.tataelectronics.com/search?_gl=1*tuxm8d*_ga*Mjk5NDAwMzQwLjE3OTE1NzQwNjM.*_ga_6TYKWL2P08*czE3OTE1NzQwNjIkbzEkZzAkdDE3OTE1NzQwNjIkajYwJGwwJGgxNDIxNzc3OTk3
+Dell | career portal | https://enterpriseplatform.dell.com/hcmUI/CandidateExperience/en/sites/careers/jobs?mode=location
+STMicroelectronics | eightfold | https://stmicroelectronics.eightfold.ai/careers
+TATA Advanced Systems | career portal | https://chroma.tcsapps.com/webhcm/tslt/careers
+ACL Digital | career portal | https://recruitment.acldigital.com/Search/
+Lattice Semiconductors | workday |  https://latticesemi.wd5.myworkdayjobs.com/latticesemiconductorscareers?hashed=-625919477&mobile=false&width=1378&height=500&bga=true&needsRedirect=false&jan1offset=-480&jun1offset=-420
+HCL Tech | career portal | https://careers.hcltech.com/go/NonTPDemand/9558355/
+Tejas Networks | career portal | https://iablcp.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/TejasNetworks
+Moschip Technology | career portal | https://moschip.com/careers/current-openings/
+Softnautics | career portal | https://softnautics.com/job-openings/
+Mirafra Technologies | career portal | https://mirafra.com/career/#hiring
+Tessolve | career portal | https://tessolve.darwinbox.com/ms/candidatev2/main/careers/allJobs
+Insemi | career portal | https://insemitech.com/current-openings/
+Mistral | career portal | https://mistralsolutions.com/career/
+iwave | career portal | https://www.iwavesystems.com/career/
+Logicfruit | career portal | https://www.logic-fruit.com/career/jobs-current-opening/
+Altera | workday | https://altera.wd1.myworkdayjobs.com/en-US/Altera
+Cisco | career portal | https://careers.cisco.com/global/en/search-results
+Google | career portal | https://www.google.com/about/careers/applications/jobs/results/?q=&hl=en-US
+Meta | career portal | https://www.metacareers.com/jobsearch/
+Apple | career portal | https://jobs.apple.com/en-in/search?location=india-INDC
+Nokia | career portal | https://jobs.nokia.com/en/sites/CX_1
+LG Electronics | career portal | https://globalcareers.lge.com/jobs
+Silicon Labs | workday | https://silabs.wd1.myworkdayjobs.com/SiliconlabsCareers
+C-DAC | career portal | https://cdac.in/index.aspx?id=current_jobs
+Vicharak | career portal | https://vicharak.in/careers/careers#positions
+Schneider Electric | career portal | https://careers.se.com/jobs
+Applied Materials | career portal | https://careers.appliedmaterials.com/careers?domain=appliedmaterials.com&triggerGoButton=false&start=0&location=india&pid=790316923630&sort_by=distance&filter_include_remote=1&filter_include_relocation=0&filter_employee_type=new+college+grad%2Cintern+%2F+student&filter_country=India
+Mathworks | career portal | https://in.mathworks.com/company/jobs/opportunities/search?keywords=&location%5B%5D=IN&q=
+Arrow Electronics | career portal | https://careers.arrow.com/us/en/search-results
+Broadcom | workday | https://broadcom.wd1.myworkdayjobs.com/External_Career
+Marvell Technology | workday | https://marvell.wd1.myworkdayjobs.com/MarvellCareers/2/refreshFacet/318c8bb6f553100021d223d9780d30be?_gl=1*g8idk2*_gcl_au*MTkzNzkyNjYwLjE3OTExOTE0MDc.*_ga*NDE5MDY2OTk4LjE3OTExOTE0MDg.*_ga_TB06EFZKBK*czE3OTE1NzU4NzQkbzIkZzEkdDE3OTE1NzU4ODYkajQ4JGwwJGgw
+Arm | career portal | https://careers.arm.com/search-jobs
+Synopsys | career portal | https://careers.synopsys.com/search-jobs
+Cadence | workday | https://cadence.wd1.myworkdayjobs.com/External_Careers
+MediaTek | career portal | https://yourcareers.mediatek.com/en/jobs?query=&locations=
+Micron | career portal | https://careers.micron.com/careers?start=0&pid=43301265&sort_by=hot
+Analog Devices | workday | https://analogdevices.wd1.myworkdayjobs.com/External
+Renesas | career portal | https://jobs.renesas.com/jobs?q=&options=&page=1
+Rambus | career portal | https://careers-rambus.icims.com/jobs/search
+SiFive | workday | https://sifive.wd1.myworkdayjobs.com/en-US/sifivecareers
+Imagination Technologies | career portal | https://www.imaginationtech.com/careers/vacancies/
+Microchip | workday | https://wd5.myworkdaysite.com/en-US/recruiting/microchiphr/External
+GlobalFoundaries | career portal |https://careers.gf.com/careers?start=0&pid=&sort_by=hot
+Astera Labs | career portal | https://www.asteralabs.com/careers/#greenhouse-listings
+Alphawave Semi | workday | https://alphawave.wd10.myworkdayjobs.com/Alphawave_External
+Einfochips | career portal | https://careers.arrow.com/us/en/search-results?keywords=einfochips
+Cyeint | career portal | https://careers.cyient.com/cyient/
+Harman | career portal | https://jobsearch.harman.com/en_US/careers/SearchJobs/?listFilterMode=1&jobRecordsPerPage=20&
+IBM | career portal | https://www.ibm.com/careers/search
+Amazon | career portal | https://www.amazon.jobs/en/search?base_query=&loc_query=
+Microsoft | career portal | https://apply.careers.microsoft.com/careers?start=0&pid=1970393557002381&sort_by=timestamp
+HP | career portal | https://apply.hp.com/careers?start=0&pid=&sort_by=timestamp&filter_job_category=engineering+services
+HPE | career portal | https://careers.hpe.com/us/en/search-results
+Fujitsu | career portal | https://www.jobs.global.fujitsu.com/search/?q=&locationsearch=&searchResultView=LIST
+Tesla | career portal | https://hire-r1.mokahr.com/social-recruitment/tesla/100004142#/
+GE Vernova | career portal | https://careers.gevernova.com/jobs
+Honeywell | career portal | https://careers.honeywell.com/en/sites/Honeywell/jobs?mode=location
+Thales | career portal | https://careers.thalesgroup.com/global/en/home
+Collin Aerospace | career portal | https://careers.rtx.com/global/en/collins-aerospace-search-results-general
