@@ -2,8 +2,12 @@ india
 bengaluru
 bangalore
 hyderabad
+pune
+noida
+gurgaon
+gurugram
 chennai
-gujrat 
-madhya pradesh 
-kerala 
-tamil nadu 
+mumbai
+ahmedabad
+kolkata
+delhi
