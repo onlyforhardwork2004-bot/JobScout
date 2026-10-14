@@ -1,12 +1,15 @@
 fpga
 asic
 rtl
-verification
-soc
 vlsi
+soc
 dft
-hardware
-hw
-silicon
-digital
-embedded
+design verification
+verification engineer
+physical design
+digital design
+logic design
+silicon design
+silicon validation
+pre-silicon
+post-silicon
