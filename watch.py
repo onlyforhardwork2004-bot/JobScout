@@ -1,6 +1,7 @@
 import json, os, re, smtplib, hashlib, datetime, time
+from html import unescape
 from email.message import EmailMessage
-from urllib.parse import urlparse, parse_qs, quote
+from urllib.parse import urlparse, parse_qs, quote, quote_plus
 import requests
 
 def read_lines(path):
@@ -14,6 +15,16 @@ LOCATIONS = [l.lower() for l in read_lines("locations.txt")]
 EXCLUDE = [x.lower() for x in read_lines("exclude.txt")]
 FRESHER = [x.lower() for x in read_lines("fresher.txt")]
 SOURCES = [[x.strip() for x in l.split("|")] for l in read_lines("sources.txt")]
+
+SETTINGS = {}
+for _l in read_lines("settings.txt"):
+    if "=" in _l:
+        _k, _v = _l.split("=", 1)
+        SETTINGS[_k.strip().lower()] = _v.strip().lower()
+SHOW_OTHER = SETTINGS.get("show_other", "yes") == "yes"
+
+BROWSER_KEYWORDS = ["fpga", "asic", "rtl", "vlsi", "soc"]
+STATS = {}
 
 BROWSER = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
@@ -55,6 +66,11 @@ def location_ok(loc):
     if not l or re.match(r"\d+ locations", l):
         return True
     return any(x in l for x in LOCATIONS)
+
+def clean_url(u):
+    u = u.split("#")[0]
+    u = re.sub(r"[?&](utm_[^&]*|_gl=[^&]*|gclid=[^&]*|fbclid=[^&]*)", "", u)
+    return u
 
 # ---------- Workday ----------
 def fetch_workday(url, extra=None):
@@ -280,22 +296,87 @@ def fetch_lever(url, extra=None):
              "location": (j.get("categories") or {}).get("location", ""),
              "url": j["hostedUrl"]} for j in r.json()]
 
-# ---------- Page change ----------
+# ---------- Page text (simple pages): reads job titles from the page text ----------
+def html_to_lines(html):
+    html = re.sub(r"(?is)<(script|style|noscript).*?</\1>", " ", html)
+    html = re.sub(r"(?i)<br\s*/?>|</(p|div|li|h[1-6]|tr|td|a|section|article|ul|ol|option|button)>", "\n", html)
+    html = re.sub(r"<[^>]+>", " ", html)
+    html = unescape(html)
+    lines = [re.sub(r"\s+", " ", l).strip() for l in html.split("\n")]
+    return [l for l in lines if 5 <= len(l) <= 160]
+
 def fetch_pagechange(url, extra=None):
     r = http("GET", url, headers={"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"})
-    text = re.sub(r"<script.*?</script>|<style.*?</style>", " ", r.text, flags=re.S)
-    text = re.sub(r"<[^>]+>", " ", text)
-    text = re.sub(r"\s+", " ", text).strip()
-    if len(text) < 500:
-        raise Exception("page looks empty (it needs JavaScript) - send the link to Claude")
-    h = hashlib.md5(text.encode()).hexdigest()[:12]
-    return [{"id": h, "title": "Page changed - open it and check for new jobs",
-             "location": "", "url": url, "force": True}]
+    lines = html_to_lines(r.text)
+    if len(lines) < 15:
+        raise Exception("page looks empty (needs JavaScript) - change its type to browser")
+    STATS["last"] = f"read {len(lines)} lines of page text"
+    return [{"id": hashlib.md5(l.encode()).hexdigest()[:12], "title": l,
+             "location": "", "url": url, "text": True} for l in lines]
+
+# ---------- Real browser (JavaScript pages) ----------
+def fetch_browser(url, extra=None):
+    try:
+        from playwright.sync_api import sync_playwright
+    except Exception:
+        raise Exception("Playwright is not installed - update watch.yml as in the guide")
+    kws = BROWSER_KEYWORDS if "{kw}" in url else [None]
+    jobs, scanned, blocked = {}, 0, False
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        ctx = browser.new_context(user_agent=BROWSER["User-Agent"], locale="en-US",
+                                  viewport={"width": 1366, "height": 900})
+        page = ctx.new_page()
+        try:
+            for kw in kws:
+                target = url.replace("{kw}", quote_plus(kw)) if kw else url
+                try:
+                    page.goto(target, wait_until="domcontentloaded", timeout=45000)
+                    try:
+                        page.wait_for_load_state("networkidle", timeout=12000)
+                    except Exception:
+                        pass
+                    page.wait_for_timeout(2000)
+                    for _ in range(3):
+                        page.mouse.wheel(0, 3000)
+                        page.wait_for_timeout(600)
+                    ptitle = (page.title() or "").lower()
+                    if any(x in ptitle for x in ("access denied", "just a moment", "attention required", "forbidden")):
+                        blocked = True
+                        continue
+                    links = page.eval_on_selector_all(
+                        "a[href]",
+                        "els => els.map(e => [e.innerText || '', e.getAttribute('aria-label') || '', e.href])")
+                except Exception as e:
+                    raise Exception(f"browser error: {str(e)[:150]}")
+                scanned += len(links)
+                for text, aria, href in links:
+                    t = text if len(text.strip()) > 12 else (aria or text)
+                    t = re.sub(r"(?i)^learn more about\s+", "", t.strip())
+                    lines = [x.strip() for x in t.split("\n") if x.strip()]
+                    if not lines or not href.startswith("http"):
+                        continue
+                    title = lines[0]
+                    if not (3 <= len(title) <= 200):
+                        continue
+                    if not re.search(r"job|career|position|opening|vacanc|requisition|apply|/req", href.lower()):
+                        continue
+                    href = clean_url(href)
+                    jobs[href] = {"id": href, "title": title,
+                                  "location": " | ".join(lines[1:3]), "url": href}
+        finally:
+            browser.close()
+    if scanned == 0:
+        raise Exception("blocked by the site's bot protection, or the page did not load")
+    if blocked and not jobs:
+        raise Exception("blocked by the site's bot protection")
+    STATS["last"] = f"browser read {scanned} links"
+    return list(jobs.values())
 
 FETCHERS = {"workday": fetch_workday, "eightfold": fetch_eightfold,
             "oracle": fetch_oracle, "jibe": fetch_jibe, "amazon": fetch_amazon,
             "greenhouse": fetch_greenhouse, "lever": fetch_lever,
-            "pagechange": fetch_pagechange}
+            "pagechange": fetch_pagechange, "browser": fetch_browser}
 
 def send(subject, body):
     msg = EmailMessage()
@@ -309,29 +390,32 @@ def send(subject, body):
 
 def fmt(jobs, limit=200):
     def line(n, j):
-        return f"{n}: {j['title']}\n{j['location']}\n{j['url']}"
-    pages = [x for x in jobs if x[1].get("force")]
-    rest = [x for x in jobs if not x[1].get("force")]
-    fresh = [x for x in rest if is_fresh(x[1]["title"])]
-    other = [x for x in rest if not is_fresh(x[1]["title"])]
+        loc = f"\n{j['location']}" if j.get("location") else ""
+        return f"{n}: {j['title']}{loc}\n{j['url']}"
+    fresh = [x for x in jobs if is_fresh(x[1]["title"])]
+    rest = [x for x in jobs if not is_fresh(x[1]["title"])]
+    text = [x for x in rest if x[1].get("text")]
+    other = [x for x in rest if not x[1].get("text")]
     out = []
     if fresh:
         out.append("=== FRESHER / INTERN FRIENDLY ===\n\n" + "\n\n".join(line(*x) for x in fresh))
-    if pages:
-        out.append("=== PAGES THAT CHANGED (open and check) ===\n\n" + "\n\n".join(line(*x) for x in pages))
     if other:
         s = "=== OTHER MATCHES (check the years of experience required) ===\n\n" + "\n\n".join(line(*x) for x in other[:limit])
         if len(other) > limit:
             s += f"\n\n...and {len(other) - limit} more"
         out.append(s)
+    if text:
+        out.append("=== READ FROM COMPANY PAGE TEXT (may include menu text; open the link to check) ===\n\n"
+                   + "\n\n".join(line(*x) for x in text[:limit]))
     return "\n\n\n".join(out) or "(none)"
 
 def main():
     first_run = not os.path.exists("seen.json")
     seen = set() if first_run else set(json.load(open("seen.json")))
-    new_jobs, failures, ok = [], [], 0
+    new_jobs, failures, info, ok = [], [], [], 0
     for parts in SOURCES:
         name = parts[0] if parts else "?"
+        STATS.clear()
         try:
             if len(parts) < 3:
                 raise Exception("line must look like: Name | type | link")
@@ -345,28 +429,31 @@ def main():
         except Exception as e:
             failures.append(f"{name}: {str(e)[:300]}")
             continue
+        matched = 0
         for j in jobs:
-            if not (j.get("force") or (title_ok(j["title"]) and location_ok(j["location"]))):
+            if not (title_ok(j["title"]) and location_ok(j["location"])):
+                continue
+            matched += 1
+            if not (SHOW_OTHER or is_fresh(j["title"])):
                 continue
             key = f"{name}|{j['id']}"
             if key not in seen:
                 seen.add(key)
-                if first_run and j.get("force"):
-                    continue
                 new_jobs.append((name, j))
+        if STATS.get("last"):
+            info.append(f"{name}: {STATS['last']}, {matched} matched your filters")
     json.dump(sorted(seen), open("seen.json", "w"), indent=1)
 
+    report = (f"Checked {ok} sources OK, {len(failures)} failed.\n\nFAILED:\n" + ("\n".join(failures) or "none")
+              + "\n\nPAGE/BROWSER SOURCES (what they actually read):\n" + ("\n".join(info) or "none"))
     if first_run:
-        send("Job watcher started",
-             f"Checked {ok} sources OK, {len(failures)} failed:\n" + "\n".join(failures)
-             + f"\n\nCurrently open matching jobs:\n\n{fmt(new_jobs)}")
+        send("Job watcher started", report + f"\n\nCurrently open matching jobs:\n\n{fmt(new_jobs)}")
     elif new_jobs:
-        nf = sum(1 for _, j in new_jobs if not j.get("force") and is_fresh(j["title"]))
+        nf = sum(1 for _, j in new_jobs if is_fresh(j["title"]))
         send(f"{nf} fresher/intern + {len(new_jobs) - nf} other new job(s)", fmt(new_jobs))
 
     now = datetime.datetime.now(datetime.timezone.utc)
     if not first_run and now.hour == 4:
-        send("Job watcher daily check",
-             f"Checked {ok} sources OK, {len(failures)} failed.\n" + "\n".join(failures))
+        send("Job watcher daily check", report)
 
 main()
