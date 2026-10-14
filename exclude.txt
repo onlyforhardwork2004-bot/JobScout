@@ -25,3 +25,6 @@ hr
 legal
 procurement
 manufacturing
+supply chain
+security operations
+customer
