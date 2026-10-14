@@ -2,14 +2,15 @@ intern
 internship
 graduate
 grad
+new grad
 trainee
 fresher
 new college
 campus
 apprentice
-entry
 junior
-associate
+associate engineer
 engineer i
 engineer 1
 early career
+university
